@@ -58,7 +58,7 @@ class Mongo_Stat {
     }
 
     /**
-     * get sorted inprog ops by time running in descending order
+     * get inprog ops by time running in descending order
      *
      * @static
      * @param MongoDB $db  mongodb db object
@@ -68,7 +68,7 @@ class Mongo_Stat {
     public static function getCurrentOp(MongoDB $db) {
         $collection = $db->selectCollection('$cmd.sys.inprog');
         $currentOp = $collection->findOne();
-        return MongoAnalytics::sort($currentOp['inprog'], array('secs_running:int' => -1));
+        return $currentOp['inprog'];
     }
 
     /**
